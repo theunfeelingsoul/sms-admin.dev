@@ -141,7 +141,7 @@
             <!-- <div class="bg-red color-palette"><span><h5>Wrong password</h5></span></div> -->
               <div class="form-group password">
                 <label class="control-label password-label hidden" for="inputError"><i class="fa fa-times-circle-o"></i> Wrong password</label>
-                <input type="password" class="form-control" name="pass"id="pass" placeholder="Password" autocomplete="off"/>
+                <input type="password" class="form-control" name="pass" id="pass" placeholder="Password" autocomplete="off"/>
               </div>
               <div class="form-group">
                 <input type="submit" class="form-control btn btn-block btn-primary " value="submit" name="sub" />

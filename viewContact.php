@@ -2,7 +2,7 @@
 <?php include "includes/_config.php"; ?>
 <html>
   <head>
-    <title>AdminLTE 2 | View Contacts</title>
+    <title>SMSAPP | View Contacts</title>
     <?php include "includes/_metaheader.php"; ?>
     <?php include "includes/_csslinks.php"; ?>
      <!-- DataTables -->

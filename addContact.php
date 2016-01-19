@@ -27,7 +27,7 @@ if(isset($_POST['bts'])){
 
 <html>
   <head>
-  <title>AdminLTE 2 | General Form Elements</title>
+  <title>SMSAPP | Create Contact</title>
   <?php include "includes/_metaheader.php"; ?>
   <?php include "includes/_csslinks.php"; ?>
   </head>
@@ -45,8 +45,8 @@ if(isset($_POST['bts'])){
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            General Form Elements
-            <small>Preview</small>
+            Create Contact
+            <!-- <small>Preview</small> -->
           </h1>
           <?php include "includes/_breadcrums.php"; ?>
         </section>

@@ -27,7 +27,7 @@ if(isset($_POST['bts'])){
 
 <html>
   <head>
-  <title>AdminLTE 2 | General Form Elements</title>
+  <title>SMSAPP | Update Contacts</title>
   <?php include "includes/_metaheader.php"; ?>
   <?php include "includes/_csslinks.php"; ?>
   </head>

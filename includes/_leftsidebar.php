@@ -44,6 +44,11 @@
           <i class="fa fa-envelope"></i> <span>Mailbox</span>
           <small class="label pull-right bg-yellow">12</small>
         </a>
+        <ul class="treeview-menu">
+          <li class="active"><a href="mailbox.php"><i class="fa fa-circle-o"></i> Inbox</a></li>
+          <li class="active"><a href="compose.php"><i class="fa fa-circle-o"></i> Compose</a></li>
+          <li class="active"><a href="read-mail.php"><i class="fa fa-circle-o"></i> Read</a></li>
+        </ul>
       </li>
     
      

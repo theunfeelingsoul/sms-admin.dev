@@ -41,14 +41,14 @@
     
       <li>
         <a href="#">
-          <i class="fa fa-envelope"></i> <span>inbox</span>
+          <i class="fa fa-envelope"></i> <span>SMS</span>
           <!-- <small class="label pull-right bg-yellow">12</small> -->
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li class=""><a href="mailbox.php"><i class="fa fa-circle-o"></i> Inbox</a></li>
+          <li class=""><a href="mailbox.php"><i class="fa fa-circle-o"></i> Sent</a></li>
           <li class=""><a href="compose.php"><i class="fa fa-circle-o"></i> Compose</a></li>
-          <li class=""><a href="read-mail.php"><i class="fa fa-circle-o"></i> Read</a></li>
+          <!-- <li class=""><a href="read-mail.php"><i class="fa fa-circle-o"></i> Read</a></li> -->
         </ul>
       </li>
     

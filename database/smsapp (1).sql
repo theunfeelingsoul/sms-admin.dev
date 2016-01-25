@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2016 at 04:40 AM
+-- Generation Time: Jan 25, 2016 at 07:16 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -40,27 +40,32 @@ CREATE TABLE `personal` (
 
 INSERT INTO `personal` (`id_personal`, `name`, `gender`, `telp`, `idnumber`) VALUES
 (1, 'Ghazali', 'Male', '87766554', 'Desa Baroh'),
-(6, 'Akmal', 'Male', '6865443', 'Desa Paya'),
-(7, 'Monicha', 'Female', '987665', 'Kota Sigli');
+(6, 'Akmal', 'Male', '6865443', 'Desa Paya');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sms`
+-- Table structure for table `sentsms`
 --
 
-CREATE TABLE `sms` (
+CREATE TABLE `sentsms` (
   `id` int(11) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `smstext` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `sms`
+-- Dumping data for table `sentsms`
 --
 
-INSERT INTO `sms` (`id`, `phone`, `smstext`) VALUES
-(1, 'sdv', 'sdv');
+INSERT INTO `sentsms` (`id`, `phone`, `smstext`) VALUES
+(1, '+254725813847', 'This is a test. This is victor.'),
+(2, '+254725813847', 'This is a test. This is victor.'),
+(3, '+254725813847', 'This is a test. This is victor.'),
+(4, '+254725813847', 'This is victor.  This is a test. Properly formatted.'),
+(5, '+254725813847', 'test'),
+(6, '+254725813847', 'text'),
+(7, '+254725813847', 'ascsca');
 
 -- --------------------------------------------------------
 
@@ -91,9 +96,9 @@ ALTER TABLE `personal`
   ADD PRIMARY KEY (`id_personal`);
 
 --
--- Indexes for table `sms`
+-- Indexes for table `sentsms`
 --
-ALTER TABLE `sms`
+ALTER TABLE `sentsms`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -112,10 +117,10 @@ ALTER TABLE `user`
 ALTER TABLE `personal`
   MODIFY `id_personal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
--- AUTO_INCREMENT for table `sms`
+-- AUTO_INCREMENT for table `sentsms`
 --
-ALTER TABLE `sms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `sentsms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `user`
 --

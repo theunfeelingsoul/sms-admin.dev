@@ -16,8 +16,9 @@ SMS functionality still under way.
 5. Created a tabled named sms. To store the sent sms. 
 6. Created an sms class to handdle the database calls for maibox.php, read-sms
 	will change the remaining pages to use this class.
+7. Created compose.php page. To send an sms
+8. Added the Africa's talking
 
 todo
 ----
-1. Make the compose.php hage to send an sms and store the sent sms. 
-2. Optimise the smstext class
+1. Optimise the smstext class

@@ -15,9 +15,9 @@ if(isset($_POST['bts'])){
      $idnumber = $_POST['idnumber'];
 
      if($stmt->execute()){
-      echo "sucess";
+      //echo "sucess";
      }else{
-      echo "fail";
+     // echo "fail";
      }
   }else{
     // echo "please fill in all ";
@@ -62,7 +62,7 @@ if(isset($_POST['bts'])){
                   <h3 class="box-title">Quick Example</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" >
+                <form role="form" action="" method="post">
                   <div class="box-body">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Name</label>

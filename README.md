@@ -22,3 +22,13 @@ SMS functionality still under way.
 todo
 ----
 1. Optimise the smstext class
+2. fix the sent items to show ... after 3 numbers
+	when u click the likn and read the sms then you can see all the numbers.
+3. in compose.php fix the discard,draft button
+4. in the TO: field have the autocomplete function like 
+   wordpress tags
+5. in mailbox.php. fix or remove the icons
+	fix the search 
+	fix the delete
+	fix the delete by the checkbox
+6. fix the breadcrums

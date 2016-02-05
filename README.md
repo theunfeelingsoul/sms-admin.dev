@@ -47,8 +47,9 @@ todo
 1. for the draft page, discard should delete the message 
 2. in the TO: field have the autocomplete function like 
    wordpress tags
------
+
 todo
+-----
 1. in mailbox.php. fix or remove the icons
 	fix the search 
 	fix the delete

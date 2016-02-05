@@ -49,7 +49,7 @@ todo
    wordpress tags
 -----
 todo
-3. in mailbox.php. fix or remove the icons
+1. in mailbox.php. fix or remove the icons
 	fix the search 
 	fix the delete
 	fix the delete by the checkbox

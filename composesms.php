@@ -3,18 +3,39 @@
 
 
   if (isset($_POST['submit-sms'])) {
+
     include 'class/smstext.php';
     $smstext = new smstext();
 
     // get the field data
-     $recipients  = trim($_POST['recipient-phone']);
-     $message     = trim($_POST['smstext']);
-     
-     $sent = $smstext->sendSms($recipients,$message);
+    $recipients  = trim($_POST['recipient-phone']);
+    $message     = trim($_POST['smstext']);
+
+    // $sent = $smstext->sendSms($recipients,$message);
     //save the data
-    $saved = $smstext->create($recipients,$message);
+    $draft = 0;
+    $saved = $smstext->create($recipients,$message,$draft);
 
     // echo "<div style=''>cc".$sent.$saved."</div>";
+
+  }
+
+  if (isset($_POST['draft-sms']) ) {
+
+    include 'class/smstext.php';
+    $smstext = new smstext();
+
+    // get the field data
+    $recipients  = trim($_POST['recipient-phone']);
+    $message     = trim($_POST['smstext']);
+
+    //save the data
+    $draft = 1;
+    $saved = $smstext->create($recipients,$message,$draft);
+    $id = $smstext->getLastId();
+
+    //redirect to edit page
+    header("Location: draft.php?draft=1&id=".$id);
 
   }
  ?>
@@ -31,6 +52,21 @@
     <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+    <!-- TAGIT INSTRUCTIONS -->
+
+    <!-- 2 CSS files are required: -->
+    <!--   * Tag-it's base CSS (jquery.tagit.css). -->
+    <!--   * Any theme CSS (either a jQuery UI theme such as "flick", or one that's bundled with Tag-it, e.g. tagit.ui-zendesk.css as in this example.) -->
+    <!-- The base CSS and tagit.ui-zendesk.css theme are scoped to the Tag-it widget, so they shouldn't affect anything else in your site, unlike with jQuery UI themes. -->
+    <link href="dist/css/tagit/jquery.tagit.css" rel="stylesheet" type="text/css">
+    <link href="dist/css/tagit/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
+    <!-- If you want the jQuery UI "flick" theme, you can use this instead, but it's not scoped to just Tag-it like tagit.ui-zendesk is: -->
+    <!--   <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css"> -->
+
+  
+
+  
 
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -87,17 +123,27 @@
             </div><!-- /.col -->
             <div class="col-md-9">
               <div class="box box-primary">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Compose New Sms</h3>
-                </div><!-- /.box-header -->
+               
                 <form action="" method="post">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Compose New Sms</h3>
+                    <div class="pull-right">
+                      <input type="submit" class="btn btn-primary" value="send" name="submit-sms"></input>
+                    </div>
+                  </div><!-- /.box-header -->
                   <div class="box-body">
                     <div class="form-group">
-                      <input class="form-control" placeholder="To:" name="recipient-phone">
+                      <!-- <input class="form-control" placeholder="To:" name="recipient-phone" required> -->
+                      <input  id="mySingleField" name="recipient-phone" type="hidden"> 
+                      <div class="row">
+                      <div class="col-md-1"> To:</div>
+                      <div class="col-md-11"><ul id="singleFieldTags"> </ul></div>
+
+                      </div>
                     </div>
                   
                     <div class="form-group">
-                      <textarea id="" class="form-control" style="height: 200px" name="smstext">
+                      <textarea id="" class="form-control" style="height: 200px" name="smstext" required/>
                         
                       </textarea>
                     </div>
@@ -105,11 +151,13 @@
                   </div><!-- /.box-body -->
                   <div class="box-footer">
                     <div class="pull-right">
-                      <a href="" class="btn btn-default"><i class="fa fa-pencil"></i> Draft</a>
-                      <input type="submit" class="btn btn-primary" value="submit" name="submit-sms"></input>
+                      <!-- <a href="" class="btn btn-default"><i class="fa fa-pencil"></i> Draft</a> -->
+                      <input type="submit" class="btn btn-default" value="Draft" name="draft-sms"></input>
+                      <!-- <input type="submit" class="btn btn-primary" value="send" name="submit-sms"></input> -->
                       <!-- <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o" name="submit-sms"></i> Send</button> -->
                     </div>
-                    <a href="" class="btn btn-default"><i class="fa fa-times"></i> Discard</a>
+                    
+                    <a href="sentsms.php" class="btn btn-default"><i class="fa fa-times"></i> Discard</a>
                   </div><!-- /.box-footer -->
                 </form>
               </div><!-- /. box -->
@@ -144,6 +192,19 @@
     <!-- Bootstrap WYSIHTML5 -->
     <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
     <!-- Page Script -->
+
+
+    <!-- Jquery Tagit -->
+    <!-- jQuery and jQuery UI are required dependencies. -->
+    <!-- Although we use jQuery 1.4 here, it's tested with the latest too (1.8.3 as of writing this.) -->
+    <!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- The real deal -->
+    <script src="dist/js/tagit/tag-it.js" type="text/javascript" charset="utf-8"></script>
+    <!-- tagit page javascript - cutom -->
+    <script src="dist/js/tagit/tag-it-send-to.js" type="text/javascript" charset="utf-8"></script>
+
     
   </body>
 </html>

@@ -1,0 +1,7 @@
+.mailbox-read-info{
+	 word-wrap: break-word;
+}
+
+.compose-to, .compose-tags{
+	float: left;
+}

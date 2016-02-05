@@ -5,7 +5,7 @@
 
   $smstext = new smstext();
 
-  $data = $smstext->getSms();
+  $data = $smstext->getSentSms();
 
 
  ?>
@@ -44,9 +44,23 @@
 
         <!-- Main content -->
         <section class="content">
+          <?php if (isset($_GET['sent']) && isset($_GET['sent']) == 'sucess'):?>
+            <div class="alert alert-success alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <h4>  <i class="icon fa fa-check"></i>SMS has been sent.</h4>
+            </div>
+          <?php endif; ?>
+
+          <!-- if the delete request is there show info -->
+          <?php if (isset($_GET['delete']) && isset($_GET['delete']) == '1'):?>
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <h4>  <i class="icon fa fa-check"></i>An SMS has been deleted.</h4>
+            </div>
+          <?php endif; ?>
           <div class="row">
             <div class="col-md-3">
-              <a href="compose.php" class="btn btn-primary btn-block margin-bottom">Compose</a>
+              <a href="composesms.php" class="btn btn-primary btn-block margin-bottom">Compose</a>
               <!-- mailbox side menu -->
               <?php include 'includes/_mailboxmenu.php' ?>
             </div><!-- /.col -->
@@ -84,12 +98,18 @@
                       <tbody>
                         
                           <?php 
+                          $n ="";
                             foreach ($data as $value) {
+                              $phone = $value['phone'];
+                              if (strlen($phone) >= 20) {
+                                  $phone = substr($phone, 0, 27). " ... ";
+                              }
+                              
                               ?>
                                 <tr>
                                   <td><input type="checkbox"></td>
                                   <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                  <td class="mailbox-name"><a href="read-mail.php?id=<?php echo $value['id'] ?>"><?php echo $value['phone']; ?></a></td>
+                                  <td class="mailbox-name"><a href="read-mail.php?id=<?php echo $value['id'] ?>"><?php echo $phone; ?></a></td>
                                   <td class="mailbox-subject"><b><?php echo $value['smstext']; ?></td>
                                   <td class="mailbox-attachment"></td>
                                   <td class="mailbox-date">5 mins ago</td>

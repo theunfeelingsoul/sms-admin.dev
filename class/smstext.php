@@ -24,6 +24,36 @@ class smstext extends Database
         return $data;
 	} // end getSms()
 
+
+	/**
+	 * getSentSms()
+	 *
+	 * Gets the sent sms. Not drafts
+	 *
+	 * @return (array) (data)
+	 */
+	public function getSentSms(){
+		// $this->db();
+		$table = $this->sent_sms_table;
+		$res = $this->mysqli->query("SELECT * FROM $table WHERE draft=0");
+        while ($row = $res->fetch_assoc()){
+        	$data[] = array(
+				'id' 		=>$row['id'] , 
+				'phone' 	=>$row['phone'] , 
+				'smstext' 	=>$row['smstext'] 
+				);
+        }
+
+        return $data;
+	}
+
+	public function delete($id){
+		// sql to delete a record
+		$table = $this->sent_sms_table;
+		$sql = "DELETE FROM $table WHERE id='$id'";
+		return $this->mysqli->query($sql);
+	}
+
 	public function getSingle($id){
 		// $this->db();
 		$table = $this->sent_sms_table;
@@ -39,12 +69,14 @@ class smstext extends Database
         return $data;
 	} // end getSms()
 
-	public function create($recipient_phone,$text){
+	// insert into SMS table
+	// the sent SMS
+	public function create($recipient_phone,$text,$draft){
 		// $this->db();
 
 		$table = $this->sent_sms_table;
-		$stmt = $this->mysqli->prepare("INSERT INTO $table(phone,smstext) VALUES (?,?)");
-		$stmt->bind_param('ss', $recipient_phone,$text);
+		$stmt = $this->mysqli->prepare("INSERT INTO $table(phone,smstext,draft) VALUES (?,?,?)");
+		$stmt->bind_param('sss', $recipient_phone,$text,$draft);
 		if($stmt->execute()){
 			return 1;
 		}else{
@@ -94,6 +126,33 @@ class smstext extends Database
 		}
 
 
+
+	} // end sendSms()
+
+	public function getLastId(){
+		return $this->mysqli->insert_id;
+	}
+
+	/**
+	 * update()
+	 *
+	 * update the sentsms table
+	 *
+	 * @param 	(int) 		(id) 			id to be updated
+	 * @param 	(var_char) 	(recipients)	phone numbers of people
+	 * @param 	(var_char) 	(message) 		text message sent / drafted
+	 * @param 	(int) 		(is_draft) 		draft or not
+	 * @return 	(string)
+	 */
+	public function update($id,$recipients,$message,$is_draft){
+		$table = $this->sent_sms_table;
+		$sql = "UPDATE $table SET phone='$recipients',smstext='$message', draft='$is_draft' WHERE id='$id'";
+		// $result = $this->mysqli->query($sql);
+		if ($this->mysqli->query($sql) === TRUE) {
+		    return 1;
+		} else {
+		    return $this->mysqli->error;
+		}
 
 	}
 

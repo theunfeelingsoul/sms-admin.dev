@@ -1,3 +1,13 @@
+<?php 
+  
+  //get the page name from the url
+  $link = $_SERVER['PHP_SELF'];
+  $link_array = explode('/',$link);
+  $page = end($link_array);
+  $filename = explode('.', $page);
+  $filename =  $filename[0];
+ ?>
+ 
 <header class="main-header">
   <!-- Logo -->
   <a href="" class="logo">
@@ -251,3 +261,4 @@
     </div>
   </nav>
 </header>
+

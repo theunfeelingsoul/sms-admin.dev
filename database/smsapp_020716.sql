@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2016 at 03:43 PM
+-- Generation Time: Feb 06, 2016 at 06:28 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -46,6 +46,35 @@ INSERT INTO `labels` (`id`, `label_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `people_group`
+--
+
+CREATE TABLE `people_group` (
+  `id` int(11) NOT NULL,
+  `person_id` varchar(255) NOT NULL,
+  `group_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `people_group`
+--
+
+INSERT INTO `people_group` (`id`, `person_id`, `group_name`) VALUES
+(1, '6', 'Group 3'),
+(2, '8', 'Group 3'),
+(3, '6', 'Group 2'),
+(4, '8', 'Group 2'),
+(5, '6', 'Group 2'),
+(6, '8', 'Group 2'),
+(7, '6', 'cars'),
+(8, '8', 'cars'),
+(9, '6', 'nairobi'),
+(10, '6', 'westlands'),
+(11, '8', 'westlands');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `personal`
 --
 
@@ -63,7 +92,6 @@ CREATE TABLE `personal` (
 --
 
 INSERT INTO `personal` (`id_personal`, `name`, `gender`, `telp`, `idnumber`, `label`) VALUES
-(1, 'Ghazali', 'Male', '87766554', 'Desa Baroh', ''),
 (6, 'Akmal', 'Male', '6865443', 'Desa Paya', ''),
 (8, 'fgbfgb', 'Male', 'dfbdb', 'dfbvdfb', '');
 
@@ -86,29 +114,15 @@ CREATE TABLE `sentsms` (
 
 INSERT INTO `sentsms` (`id`, `phone`, `smstext`, `draft`) VALUES
 (1, '+254725813847,+254725813847,+254725813847,+254725813847,+254725813847,+254725813847,+254725813847,+254725813847,+254725813847,+254725813847,+254725813847,+254725813847', 'This is a test. This is victor.', 0),
-(2, '+254725813847', 'This is a test. This is victor.', 0),
-(3, '+254725813847', 'This is a test. This is victor.', 0),
-(4, '+254725813847', 'This is victor.  This is a test. Properly formatted.', 0),
-(5, '+254725813847', 'test', 0),
-(6, '+254725813847', 'text', 0),
-(7, '+254725813847', 'ascsca', 0),
-(8, 'csdcsd', 'scsdcsdc', 0),
 (9, 'csdcs', 'sdcsdcsdc', 1),
 (10, 'csdcsdc', 'sdcsdc', 1),
-(11, 'cascasc', 'ascascasc', 0),
 (12, 'casca', 'ascascasc', 1),
 (13, 'sdvsdv', 'sdvsdvsdv', 1),
 (14, 'svsv', 'svsvsdvsd', 0),
 (15, 'sdvsd', 'sdvsdvsdv', 1),
-(16, '337', '33                      7', 0),
 (17, 'sSC', 'SDCSDCSDC', 1),
 (18, 'vsdvfvbf55', 'vsvsdvsv                      bfbf', 0),
-(19, 'cb', '', 0),
-(20, 'nairobi,cars', 'dasascacas', 0),
-(21, 'nairobi,cars', '', 1),
-(22, 'tanzania', '', 1),
-(25, 'eecd', '', 0),
-(26, 'scvsd,svs,sdv,sdvs,sdvsdv,sdvsdvsvsdsv,sdvsdvvsv sdvsdv,sdsdvb dsvsdvs,sdvsdvsv,svsdv dsvs,vsdvsdvsdvd,sdfvsdvsdv,svsdvs,dvs,dvv,svsdvsdv,sdvvv,vsdv,v', '', 0);
+(20, 'nairobi,cars', 'dasascacas', 0);
 
 -- --------------------------------------------------------
 
@@ -139,6 +153,12 @@ ALTER TABLE `labels`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `people_group`
+--
+ALTER TABLE `people_group`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `personal`
 --
 ALTER TABLE `personal`
@@ -166,6 +186,11 @@ ALTER TABLE `user`
 ALTER TABLE `labels`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
+-- AUTO_INCREMENT for table `people_group`
+--
+ALTER TABLE `people_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
 -- AUTO_INCREMENT for table `personal`
 --
 ALTER TABLE `personal`
@@ -174,7 +199,7 @@ ALTER TABLE `personal`
 -- AUTO_INCREMENT for table `sentsms`
 --
 ALTER TABLE `sentsms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `user`
 --

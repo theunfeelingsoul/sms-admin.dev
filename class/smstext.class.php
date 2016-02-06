@@ -9,6 +9,10 @@ class smstext extends Database
 {
 
 	public $sent_sms_table = "sentsms";
+	public $_limit = 5;
+	public $_page = 1;
+ 
+
 	public function getSms(){
 		// $this->db();
 		$table = $this->sent_sms_table;
@@ -46,6 +50,32 @@ class smstext extends Database
 
         return $data;
 	}
+
+	/**
+	 * getSentSmsPagination()
+	 *
+	 * Gets the sent sms paginated. Not drafts
+	 *
+	 *	@param (int) ($start) 		record to start returning from
+	 *	@param (int) ($per_page) 	records per page
+	 *
+	 * @return (array) (data)
+	 */
+	public function getSentSmsPagination($start,$per_page){
+		$table = $this->sent_sms_table;
+		$res = $this->mysqli->query("SELECT * FROM $table WHERE draft=0 LIMIT $start,$per_page");
+		$data ="";
+        while ($row = $res->fetch_assoc()){
+        	$data[] = array(
+				'id' 		=>$row['id'] , 
+				'phone' 	=>$row['phone'] , 
+				'smstext' 	=>$row['smstext'] 
+				);
+        }
+
+        return $data;
+	}
+
 
 	public function delete($id){
 		// sql to delete a record

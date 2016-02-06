@@ -64,11 +64,26 @@
               <div class="box">
                 <div class="box-header">
                   <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
+                  <div id="add-group-form">
+                    <div class="col-md-2">
+                      <select id="add-group-form-select" class="form-control">
+                        <option>Add group</option>
+                        <?php $res1 = $mysqli->query("SELECT * FROM labels"); while ($row = $res1->fetch_assoc()):?>
+                        <option><?php echo $row['label_name'] ?></option>
+                        <?php endwhile; ?>
+                      </select>
+                    </div>
+                    <div class="col-md-1">
+                      <input id="add-group-form-btn" class="form-control" type="submit" value="add"/>
+                    </div>
+                    <div class="group-add-alert col-md-3 text-danger"> </div>
+                  </div> <!-- /.add-group-form -->
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="contact-table" class="table table-bordered table-striped">
                     <thead>
                       <tr>
+                        <th></th>
                         <th>ID</th>
                         <th>Name</th>
                         <th>Gender</th>
@@ -83,6 +98,7 @@
                         while ($row = $res->fetch_assoc()):
                       ?>
                         <tr>
+                          <td> <input id="<?php echo $row['id_personal'] ?>"type="checkbox" name="checkgroup"/> </td>
                           <td><?php echo $row['id_personal'] ?></td>
                           <td><?php echo $row['name'] ?></td>
                           <td><?php echo $row['gender'] ?></td>
@@ -176,7 +192,7 @@
     <!-- page script -->
     <script>
       $(function () {
-        $("#example1").DataTable();
+        $("#contact-table").DataTable();
         $('#example2').DataTable({
           "paging": true,
           "lengthChange": false,
@@ -243,5 +259,33 @@
     <?php
       } 
     ?>
+
+    <script type="text/javascript">
+
+      // check the records 
+      // add them to a group from the select input
+
+      $( "#add-group-form-btn" ).click(function() {
+        var checked_boxes = $('[name=checkgroup]:checked').size(); // get the number of the checked contacts
+        var groupname = $( "#add-group-form-select option:selected" ).text(); // value of drop down
+
+          $('[name=checkgroup]:checked').each(function () { // use loop to insert data one by one
+            var id = $(this).attr('id'); // id of checkbox which is the id of the contact
+              $.post( "ajaxlabel.php", { id: id , g : groupname}).done(function( data ) {
+                console.log(data);
+                $('#contact-table :checked').removeAttr('checked'); // clear the checkboxes
+              }); // end $.post()
+          }); // end .each()
+
+          $( ".group-add-alert" ).append( checked_boxes+" contacts added to "+groupname ); // add some text to show what has happned
+
+          setTimeout(function() {
+            $( ".group-add-alert" ).empty(); // renove the text after 5 seconds
+          }, 5000); // end setTimeout()
+
+      }); // end .click()
+
+
+    </script>
   </body>
 </html>

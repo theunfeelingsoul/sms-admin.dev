@@ -55,3 +55,28 @@ todo
 	fix the delete
 	fix the delete by the checkbox
 2. Creat the labels to be sent
+
+2/6/2016
+--------
+1. fixed pagination in sentsms.php page
+2. fixed the pagination buttons in sentsms.php
+3. removed the stars in sentsms.php
+4. changed inbox to messages
+5. fixed delete many records usingcheckbox
+6. after deleting show message
+
+todo
+----
+
+1. add password protection before delete
+
+2/7/2016 Sunday
+---------------
+
+
+1. add checkboxes to the view contact page
+2. on checking a box, display the group select input form
+
+todo
+----
+1. Send an sms by using the groups

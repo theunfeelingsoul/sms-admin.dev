@@ -26,8 +26,12 @@
       <li class="header">MAIN NAVIGATION</li>
       
      
-     
-      <li class="treeview active">
+     <!-- check the url and make the li active. $filename is in the _header.php page-->
+      <?php if (strpos($filename, 'Contact') == true): ?>
+        <li class="treeview active">
+      <?php else: ?>
+        <li>
+      <?php endif; ?>
         <a href="#">
           <i class="fa fa-edit"></i> <span>Forms</span>
           <i class="fa fa-angle-left pull-right"></i>
@@ -38,11 +42,14 @@
         </ul>
       </li>
       
-    
-      <li>
+      <!-- check the url and make the li active. $filename is in the _header.php page-->
+      <?php if (strpos($filename, 'sms') == true): ?>
+        <li class="treeview active">
+      <?php else: ?>
+        <li>
+      <?php endif; ?>
         <a href="#">
           <i class="fa fa-envelope"></i> <span>SMS</span>
-          <!-- <small class="label pull-right bg-yellow">12</small> -->
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">

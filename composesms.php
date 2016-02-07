@@ -22,7 +22,7 @@
 
     $draft = 0;
     foreach ($groups as $key => $value) {
-      // $sent = $smstext->sendSms($recipients,$message);
+      $sent = $smstext->sendSms($recipients,$message);
       // save the data
       $saved = $smstext->create($recipients,$message,$draft);
     }

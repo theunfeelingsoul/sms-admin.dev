@@ -16,8 +16,10 @@ if(isset($_POST['bts'])){
 
      if($stmt->execute()){
       //echo "sucess";
+      $status = 1;
      }else{
-     // echo "fail";
+       $status = 0;
+       $error = $mysqli->error;
      }
   }else{
     // echo "please fill in all ";
@@ -53,6 +55,19 @@ if(isset($_POST['bts'])){
 
         <!-- Main content -->
         <section class="content">
+          <?php if (isset($status) && isset($status) == 1): ?>
+            <div class="alert alert-success alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <h4>  <i class="icon fa fa-check"></i> Contact Added!</h4>
+            </div>
+          <?php endif; ?>
+
+          <?php if (isset($status) && isset($status) == 0): ?>
+            <div class="alert alert-danger alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <h4>  <i class="icon fa fa-check"></i> Error. Please contact your administrator <br> <?php echo $error ?></h4>
+            </div>
+          <?php endif; ?>
           <div class="row">
             <!-- left column -->
             <div class="col-md-12">
@@ -93,8 +108,6 @@ if(isset($_POST['bts'])){
                 </form>
               </div><!-- /.box -->
             </div><!--/.col (left) -->
-
-           
           </div>   <!-- /.row -->
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
@@ -112,6 +125,8 @@ if(isset($_POST['bts'])){
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- Slimscroll -->
+    <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
     <script src="plugins/fastclick/fastclick.min.js"></script>
     <!-- AdminLTE App -->

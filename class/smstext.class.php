@@ -84,20 +84,20 @@ class smstext extends Database
 		return $this->mysqli->query($sql);
 	}
 
-	public function getSingle($id){
-		// $this->db();
-		$table = $this->sent_sms_table;
-		$res = $this->mysqli->query("SELECT * FROM $table WHERE id='$id'");
-        while ($row = $res->fetch_assoc()){
-        	$data= array(
-				'id' 		=>$row['id'] , 
-				'phone' 	=>$row['phone'] , 
-				'smstext' 	=>$row['smstext'] 
-				);
-        }
+	// public function getSingle($id){
+	// 	// $this->db();
+	// 	$table = $this->sent_sms_table;
+	// 	$res = $this->mysqli->query("SELECT * FROM $table WHERE id='$id'");
+ //        while ($row = $res->fetch_assoc()){
+ //        	$data= array(
+	// 			'id' 		=>$row['id'] , 
+	// 			'phone' 	=>$row['phone'] , 
+	// 			'smstext' 	=>$row['smstext'] 
+	// 			);
+ //        }
 
-        return $data;
-	} // end getSms()
+ //        return $data;
+	// } // end getSms()
 
 	// insert into SMS table
 	// the sent SMS
@@ -186,6 +186,56 @@ class smstext extends Database
 
 	}
 
+
+	/**
+	 * explodePostGetGroups()
+	 *
+	 * Get the groups and return the phone numbers associated with the group
+	 * Also merge any phone numbers passed with the group
+	 *
+	 * @param 	(array) 	(post) 					array to be cleaned of phone numbers numbers
+	 * @return 	(array)     ($contact_phones) 		conatining phone numbres
+	 */
+	public function explodePostGetGroups($post){
+		// explode post
+		$post = explode(',', $post);
+		$contact_phones_1 = FALSE;
+		
+		foreach ($post as $key => $value) {
+			// check if the string starts with +245
+			// then get the phone numbers associated with that group
+			if (substr( $value, 0, 4 ) != "+254"):
+				// get the contact id associatied with the group name
+				// this process will bring out duplicates becase many people can be in many groups
+				$contacts_ids = $this->getGroupsByField('group_name',$value);
+				
+				// check if there are any contacts first
+				if ($contacts_ids) :
+					// get the contacts phone number from the personal table
+					// by using the contacts id just gotten from the groups table
+					foreach ($contacts_ids as $contacts_id) {
+
+						// get the phone numbers from the contact table
+						$phones = $this->getContactsByID($contacts_id['person_id']);
+						$contact_phones[]= $phones['telp']; // no loop needed cause there is only one record gotten
+					}
+				endif;
+			else:
+				$contact_phones_1 [] = $value;
+			endif;
+		}
+
+		// get rid of the dulicates
+		// todo : find a way to remove this eariler on
+		$contact_phones = array_unique($contact_phones);
+		// merge the contacts form groups and contacts from field entry if any
+		if ($contact_phones_1):
+			$contact_phones = array_merge($contact_phones,$contact_phones_1);
+		endif;
+
+		return $contact_phones;
+
+	} // end explodePostGetGroups()
 
 
 

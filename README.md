@@ -76,7 +76,8 @@ todo
 
 1. add checkboxes to the view contact page
 2. on checking a box, display the group select input form
+3. Send an sms by using the groups
 
 todo
 ----
-1. Send an sms by using the groups
+1. create a page to add groups

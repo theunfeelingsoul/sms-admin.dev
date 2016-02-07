@@ -12,14 +12,14 @@
       </div>
     </div>
     <!-- search form -->
-    <form  class="sidebar-form">
+    <!-- <form  class="sidebar-form">
       <div class="input-group"> 
         <input type="text" name="q" class="form-control" placeholder="Search...">
         <span class="input-group-btn">
           <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
         </span>
       </div>
-    </form>
+    </form> -->
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
@@ -33,7 +33,7 @@
         <li>
       <?php endif; ?>
         <a href="#">
-          <i class="fa fa-edit"></i> <span>Forms</span>
+          <i class="fa fa-edit"></i> <span>Contacts</span>
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
@@ -53,8 +53,8 @@
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li class=""><a href="sentsms.php"><i class="fa fa-circle-o"></i> Sent</a></li>
           <li class=""><a href="composesms.php"><i class="fa fa-circle-o"></i> Compose</a></li>
+          <li class=""><a href="sentsms.php"><i class="fa fa-circle-o"></i> Sent</a></li>
           <!-- <li class=""><a href="read-mail.php"><i class="fa fa-circle-o"></i> Read</a></li> -->
         </ul>
       </li>

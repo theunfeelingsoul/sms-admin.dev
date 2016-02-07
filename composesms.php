@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <?php 
+  
+  // instanciate the smstxt class
+  include 'class/smstext.class.php';
+  $smstext = new smstext();
+  $total = $smstext->countSentSMS();   
 
-
+  // Save the sms into sentsms table
+  // send the sms to the recipient 
   if (isset($_POST['submit-sms'])) {
-
-    include 'class/smstext.php';
-    $smstext = new smstext();
 
     // get the field data
     $recipients  = trim($_POST['recipient-phone']);
     $message     = trim($_POST['smstext']);
 
-    // $sent = $smstext->sendSms($recipients,$message);
-    //save the data
-    $draft = 0;
-    $saved = $smstext->create($recipients,$message,$draft);
+    //  send to recipients in the group
 
-    // echo "<div style=''>cc".$sent.$saved."</div>";
+    //  get the phone numebrs associated with the groups
+    // merge with the phone numbers passed with the groups
+    $groups = $smstext->explodePostGetGroups($_POST['recipient-phone']);
+
+    $draft = 0;
+    foreach ($groups as $key => $value) {
+      // $sent = $smstext->sendSms($recipients,$message);
+      // save the data
+      $saved = $smstext->create($recipients,$message,$draft);
+    }
 
   }
 
+  // save the sms into sentsms table whith draft field as 1 
   if (isset($_POST['draft-sms']) ) {
-
-    include 'class/smstext.php';
-    $smstext = new smstext();
 
     // get the field data
     $recipients  = trim($_POST['recipient-phone']);
@@ -83,8 +90,8 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Mailbox
-            <small>13 new messages</small>
+            Compose SMS
+
           </h1>
           <?php include "includes/_breadcrums.php"; ?>
         </section>
@@ -117,7 +124,7 @@
            ?>
           <div class="row">
             <div class="col-md-3">
-              <a href="mailbox.php" class="btn btn-primary btn-block margin-bottom">Back to Inbox</a>
+              <a href="sentsms.php" class="btn btn-primary btn-block margin-bottom">Sent SMS</a>
               <!-- mailbox side menu -->
               <?php include 'includes/_mailboxmenu.php' ?>
             </div><!-- /.col -->

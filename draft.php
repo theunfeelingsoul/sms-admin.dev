@@ -2,8 +2,11 @@
 <?php 
 
   // echo "string";
-  include 'class/smstext.php';
+  include 'class/smstext.class.php';
   $smstext = new smstext();
+
+          $total = $smstext->countSentSMS(); 
+
 
   // Get the id given
   $draft_id = $_GET['id'];

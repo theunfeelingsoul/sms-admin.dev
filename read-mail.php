@@ -4,9 +4,11 @@
   if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    include 'class/smstext.php';
+    include 'class/smstext.class.php';
 
     $smstext = new smstext();
+        $total = $smstext->countSentSMS(); 
+
 
     $data=$smstext->getSingle($id);
 

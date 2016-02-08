@@ -23,14 +23,17 @@
     $groups = $smstext->explodePostGetGroups($_POST['recipient-phone']);
 
     // check if groups reurned sth
+    // $sent=array();
     if($groups):
+
       $draft = 0;
       foreach ($groups as $key => $value) {
-          echo($value);
-        // $sent = $smstext->sendSms($recipients,$message);
+
+        $sent= $smstext->sendSms($value,$message);
         // save the data
-        // $saved = $smstext->create($recipients,$message,$draft);
+        $saved = $smstext->create($value,$message,$draft);
       }
+      // exit();  
     else:
       // if nothing , give an warning message
       $warning = "No numbers or groups were recognized. Please try again or contact your administrator";

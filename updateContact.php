@@ -3,25 +3,26 @@
 <?php
 
 include "includes/_config.php";
-
 if(isset($_POST['bts'])){
-  if($_POST['nm']!=null && $_POST['gd']!=null && $_POST['tl']!=null  && $_POST['idnumber']!=null){
-     $stmt = $mysqli->prepare("INSERT INTO personal(name,gender,telp,idnumber) VALUES (?,?,?,?)");
-     $stmt->bind_param('ssss', $nm, $gd, $tl, $idnumber);
 
-     $nm = $_POST['nm'];
-     $gd = $_POST['gd'];
-     $tl = $_POST['tl'];
-     $idnumber = $_POST['idnumber'];
 
-     if($stmt->execute()){
-      echo "sucess";
-     }else{
-      echo "fail";
-     }
-  }else{
-    // echo "please fill in all ";
-  }
+  $id = $_POST['id'];
+  $name = $_POST['nm'];
+  $gender = $_POST['gd'];
+  $telp = $_POST['tl'];
+  $idnumber = $_POST['idnumber'];
+
+
+
+    $sql = "UPDATE personal SET name='$name' ,gender='$gender', telp='$telp' ,idnumber='$idnumber' WHERE id_personal='$id'";
+
+    if ($mysqli->query($sql) === TRUE) {
+        echo "Record updated successfully";
+    } else {
+        echo "Error updating record: " . $conn->error;
+    }
+    
+ 
 }
 ?>
 

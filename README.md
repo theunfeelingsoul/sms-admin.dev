@@ -83,5 +83,6 @@ todo
 1. create a page to add groups
 
 2/8/2016 Monday
+---------------
 1. Fixed the senging of groups and individual numbers in compose.sms
-2. 
+2. Fixed the addcontact.php page. Added blue color

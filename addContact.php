@@ -29,9 +29,9 @@ if(isset($_POST['bts'])){
 
 <html>
   <head>
-  <title>SMSAPP | Create Contact</title>
-  <?php include "includes/_metaheader.php"; ?>
-  <?php include "includes/_csslinks.php"; ?>
+    <title>SMSAPP | Add Contact</title>
+    <?php include "includes/_metaheader.php"; ?>
+    <?php include "includes/_csslinks.php"; ?>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">

@@ -5,3 +5,7 @@
 .compose-to, .compose-tags{
 	float: left;
 }
+
+#add-group-form > .col-md-2 {
+	padding-left: 0px;
+}

@@ -58,7 +58,7 @@ if(isset($_POST['bts'])){
           <?php if (isset($status) && isset($status) == 1): ?>
             <div class="alert alert-success alert-dismissable">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              <h4>  <i class="icon fa fa-check"></i> Contact Added!</h4>
+              <h4>  <i class="icon fa fa-check"></i> Contact Added! &nbsp;&nbsp;  <SMALL> <a href="viewContact.php">View contact here</a></SMALL></h4>
             </div>
           <?php endif; ?>
 

@@ -5,6 +5,8 @@
   include 'class/smstext.class.php';
   $smstext = new smstext();
   $total = $smstext->countSentSMS();   
+  // declare the variable
+  $warning = FALSE;
 
   // Save the sms into sentsms table
   // send the sms to the recipient 
@@ -20,12 +22,19 @@
     // merge with the phone numbers passed with the groups
     $groups = $smstext->explodePostGetGroups($_POST['recipient-phone']);
 
-    $draft = 0;
-    foreach ($groups as $key => $value) {
-      $sent = $smstext->sendSms($recipients,$message);
-      // save the data
-      $saved = $smstext->create($recipients,$message,$draft);
-    }
+    // check if groups reurned sth
+    if($groups):
+      $draft = 0;
+      foreach ($groups as $key => $value) {
+          echo($value);
+        // $sent = $smstext->sendSms($recipients,$message);
+        // save the data
+        // $saved = $smstext->create($recipients,$message,$draft);
+      }
+    else:
+      // if nothing , give an warning message
+      $warning = "No numbers or groups were recognized. Please try again or contact your administrator";
+    endif;
 
   }
 
@@ -98,30 +107,33 @@
 
         <!-- Main content -->
         <section class="content">
-          <?php 
+           
+          <?php if (isset($sent)):
+              if ($sent == 'Success' && $saved ==1):?>
+                <div class="alert alert-success alert-dismissable">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h4>  <i class="icon fa fa-check"></i> Sucess!</h4>
+                </div>
 
-            if (isset($sent)) {
-              if ($sent == 'Success' && $saved ==1) {
-           ?>
-              <div class="alert alert-success alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4>  <i class="icon fa fa-check"></i> Sucess!</h4>
-              </div>
-          <?php 
+              <?php else: ?>
 
-              }else{
+                <div class="alert alert-danger alert-dismissable">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h4>
+                    <i class="icon fa fa-ban"></i> Error. Please contact your administrator <br><?php echo $sent?>
+                  </h4>
+                </div> 
 
-           ?>
-              <div class="alert alert-danger alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4><i class="icon fa fa-ban"></i> Error. Please contact your administrator</h4>
-              </div> 
-          <?php 
-
-              }
-            }
-
-           ?>
+              <?php endif; ?>
+            <?php endif; ?>
+          <?php if($warning): ?>
+            <div class="alert alert-warning alert-dismissable">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h4>
+                    <i class="icon fa fa-ban"></i><?php echo $warning; ?>
+                  </h4>
+                </div> 
+          <?php endif; ?>
           <div class="row">
             <div class="col-md-3">
               <a href="sentsms.php" class="btn btn-primary btn-block margin-bottom">Sent SMS</a>

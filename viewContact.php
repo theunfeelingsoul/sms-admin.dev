@@ -67,7 +67,7 @@
                   <div id="add-group-form">
                     <div class="col-md-2">
                       <select id="add-group-form-select" class="form-control">
-                        <option>Add group</option>
+                        <option>Add to group</option>
                         <?php $res1 = $mysqli->query("SELECT * FROM labels"); while ($row = $res1->fetch_assoc()):?>
                         <option><?php echo $row['label_name'] ?></option>
                         <?php endwhile; ?>
@@ -84,7 +84,7 @@
                     <thead>
                       <tr>
                         <th></th>
-                        <th>ID</th>
+                        <!-- <th>ID</th> -->
                         <th>Name</th>
                         <th>Gender</th>
                         <th>Phone</th>
@@ -94,12 +94,12 @@
                     </thead>
                     <tbody>
                       <?php
-                        $res = $mysqli->query("SELECT * FROM personal");
+                        $res = $mysqli->query("SELECT * FROM personal ORDER BY id_personal DESC");
                         while ($row = $res->fetch_assoc()):
                       ?>
                         <tr>
                           <td> <input id="<?php echo $row['id_personal'] ?>"type="checkbox" name="checkgroup"/> </td>
-                          <td><?php echo $row['id_personal'] ?></td>
+                          <!-- <td><?php // echo $row['id_personal'] ?></td> -->
                           <td><?php echo $row['name'] ?></td>
                           <td><?php echo $row['gender'] ?></td>
                           <td><?php echo $row['telp'] ?></td>

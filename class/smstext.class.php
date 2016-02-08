@@ -193,16 +193,19 @@ class smstext extends Database
 	 * Get the groups and return the phone numbers associated with the group
 	 * Also merge any phone numbers passed with the group
 	 *
-	 * @param 	(array) 	(post) 					array to be cleaned of phone numbers numbers
-	 * @return 	(array)     ($contact_phones) 		conatining phone numbres
+	 * @param 	(array) 	(post) 					array to be sorted, containing groups and individual numbers
+	 * @return 	(array)     ($all_num) 				conatining final grouped numbers phone numbres
 	 */
 	public function explodePostGetGroups($post){
 		// explode post
 		$post = explode(',', $post);
-		$contact_phones_1 = FALSE;
+		// initiate the variables to FALSE
+		$i_num = FALSE; // individial phone numbers
+		$g_num = FALSE; // grouped phone numebrs
+
 		
 		foreach ($post as $key => $value) {
-			// check if the string starts with +245
+			// check if a group i.e. doesnt start with +254
 			// then get the phone numbers associated with that group
 			if (substr( $value, 0, 4 ) != "+254"):
 				// get the contact id associatied with the group name
@@ -217,23 +220,36 @@ class smstext extends Database
 
 						// get the phone numbers from the contact table
 						$phones = $this->getContactsByID($contacts_id['person_id']);
-						$contact_phones[]= $phones['telp']; // no loop needed cause there is only one record gotten
+						$g_num[]= $phones['telp']; // no loop needed cause there is only one record gotten
 					}
+				else:
+					$g_num = FALSE;
 				endif;
 			else:
-				$contact_phones_1 [] = $value;
+				// add the individual numbers to this array
+				$i_num [] = $value;
 			endif;
 		}
 
-		// get rid of the dulicates
-		// todo : find a way to remove this eariler on
-		$contact_phones = array_unique($contact_phones);
+
+
 		// merge the contacts form groups and contacts from field entry if any
-		if ($contact_phones_1):
-			$contact_phones = array_merge($contact_phones,$contact_phones_1);
+		// if both groups and intval(var)dividial numbers provided
+		if ($g_num == TRUE && $i_num == TRUE):
+			$all_num = array_merge($g_num,$i_num);
+		// if only indovodual numbers provided
+		elseif($g_num == FALSE && $i_num == TRUE):
+			$all_num = array_unique($i_num);
+		// if only groups provided
+		elseif($g_num == TRUE && $i_num == FALSE):
+			$all_num = array_unique($g_num);
+		// if only groups provided
+		elseif($g_num == FALSE && $i_num == FALSE):
+			$all_num = FALSE;
 		endif;
 
-		return $contact_phones;
+		
+		return $all_num;
 
 	} // end explodePostGetGroups()
 

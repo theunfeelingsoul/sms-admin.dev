@@ -31,7 +31,7 @@
         <li class="dropdown messages-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-envelope-o"></i>
-            <span class="label label-success"><?php echo $total; ?></span>
+            <span class="label label-success"></span>
           </a>
           
         </li>

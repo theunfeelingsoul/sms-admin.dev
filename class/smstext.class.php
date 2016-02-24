@@ -5,13 +5,29 @@ include 'Database.php';
 * 
 */
 
+/**
+* 
+*/
+
 class smstext extends Database
 {
 
 	public $sent_sms_table = "sentsms";
 	public $_limit = 5;
 	public $_page = 1;
+
+	//store the number of records
+	public $total_sent;
+	public $total_draft;
  
+	function __construct()
+	{	
+		parent::__construct();
+
+		// countr number of sent and draft SMSs
+		$this->total_sent = $this->countSentSMS();   // total sent SMSs 
+		$this->total_draft = $this->countDraftSMS();  
+	}
 
 	public function getSms(){
 		// $this->db();
@@ -34,19 +50,55 @@ class smstext extends Database
 	 *
 	 * Gets the sent sms. Not drafts
 	 *
-	 * @return (array) (data)
+	 * @return (array or Boolean)  (data)  
 	 */
 	public function getSentSms(){
 		// $this->db();
 		$table = $this->sent_sms_table;
 		$res = $this->mysqli->query("SELECT * FROM $table WHERE draft=0");
-        while ($row = $res->fetch_assoc()){
-        	$data[] = array(
-				'id' 		=>$row['id'] , 
-				'phone' 	=>$row['phone'] , 
-				'smstext' 	=>$row['smstext'] 
-				);
-        }
+
+		// check if there is data first
+		if ($this->countSentSMS() > 0 ) {
+			while ($row = $res->fetch_assoc()){
+	        	$data[] = array(
+					'id' 		=>$row['id'] , 
+					'phone' 	=>$row['phone'] , 
+					'smstext' 	=>$row['smstext'] 
+					);
+	        }
+		}else{
+			$data = FALSE;
+		}
+       
+
+        return $data;
+	}
+
+	/**
+	 * getDraftSms()
+	 *
+	 * Gets the draft sms.
+	 *
+	 * @return (array or Boolean) (data)
+	 */
+	public function getDraftSms(){
+		// $this->db();
+		$table = $this->sent_sms_table;
+		$res = $this->mysqli->query("SELECT * FROM $table WHERE draft=1");
+
+		// check if there is data first
+		if ($this->countDraftSMS() > 0 ) {
+			while ($row = $res->fetch_assoc()){
+	        	$data[] = array(
+					'id' 		=>$row['id'] , 
+					'phone' 	=>$row['phone'] , 
+					'smstext' 	=>$row['smstext'] 
+					);
+	        }
+		}else{
+			$data = FALSE;
+		}
+       
 
         return $data;
 	}

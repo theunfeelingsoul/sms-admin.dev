@@ -34,6 +34,15 @@ class Database
 		return $row_count;
 	}
 
+
+	public function countDraftSMS(){
+		$query = "SELECT * FROM sentsms WHERE draft = 1";
+		$result = $this->mysqli->query($query);
+		$row_count = $result->num_rows;
+
+		return $row_count;
+	}
+
 	public function getGroupsByField($field,$value){
 		// $query = "SELECT DISTINCT id,person_id, group_name FROM people_group WHERE $field = '$value'";
 		$query = "SELECT * FROM people_group WHERE $field = '$value'";

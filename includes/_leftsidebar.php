@@ -55,6 +55,7 @@
         <ul class="treeview-menu">
           <li class=""><a href="composesms.php"><i class="fa fa-circle-o"></i> Compose</a></li>
           <li class=""><a href="sentsms.php"><i class="fa fa-circle-o"></i> Sent</a></li>
+          <li class=""><a href="draftsms.php"><i class="fa fa-circle-o"></i> Drafts</a></li>
           <!-- <li class=""><a href="read-mail.php"><i class="fa fa-circle-o"></i> Read</a></li> -->
         </ul>
       </li>

@@ -91,3 +91,16 @@ todo
 ----
 show draft
 add group
+
+
+2/23/2016
+---------
+change use the js datatables for showing the SMSs
+show draft
+add group
+click draft to edit draft
+
+todo
+----
+
+When draft is deleted, show alert and return to draftsms.php

@@ -4,18 +4,15 @@
 
   $smstext = new smstext();
 
-  $total_sent = $smstext->countSentSMS();                        // total sent SMSs 
-  $total_draft = $smstext->countDraftSMS();                        // total SMSs
+  // $total_sent = $smstext->countSentSMS();                        // total sent SMSs 
+  // $total_draft = $smstext->countDraftSMS();                        // total SMSs
 
-  $data = $smstext->getSentSms(); // return send SMS no drafts
-
-
-
+  $data = $smstext->getDraftSms(); // return draft SMSs
 
  ?>
 <html>
   <head>
-    <title>SMSAPP | Mailbox</title>
+    <title>SMSAPP | Drafts</title>
     <?php include "includes/_metaheader.php"; ?>
     <?php include "includes/_csslinks.php"; ?>
     <!-- DataTables -->
@@ -42,8 +39,8 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Sent Messages
-            <small><?php echo $total_sent ?> </small>
+            Draft Messages
+            <small><?php echo $smstext->total_draft ?> </small>
           </h1>
           <?php include "includes/_breadcrums.php"; ?>
         </section>
@@ -66,7 +63,7 @@
           <?php if (isset($_GET['delete']) && isset($_GET['delete']) == '1'):?>
             <div class="alert alert-warning alert-dismissable">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              <h4>  <i class="icon fa fa-check"></i>An SMS has been deleted.</h4>
+              <h4>  <i class="icon fa fa-check"></i>Draft SMS deleted.</h4>
             </div>
           <?php endif; ?>
           <div class="row">
@@ -78,7 +75,7 @@
             <div class="col-md-9">
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Messages</h3>
+                  <h3 class="box-title">Draft Messages</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                     <table class="table table-bordered table-striped" id="sentsms-table">
@@ -86,29 +83,29 @@
                         <!-- <td>checkbox</td> -->
                         <th>Number</th>
                         <th>Message</th>
-                        <th>Delete</th>
+                        <!-- <th>Time</th> -->
                       </thead>
                       <tbody>
                         
                           <?php 
-                          $n ="";
-                            foreach ($data as $value) {
-                              $phone = $value['phone'];
-                              if (strlen($phone) >= 20) {
-                                  $phone = substr($phone, 0, 27). " ... ";
-                              }
-                              
-                              ?>
-                                <tr id="tr_<?php echo $value['id'] ?>">
-                                  <!-- <td><input type="checkbox" name="case" id="<?php //echo $value['id'] ?>"></td> -->
-                                  <td class=""><a href="readsms.php?id=<?php echo $value['id'] ?>"><?php echo $phone; ?></a></td>
-                                  <td class=""><b><?php echo $value['smstext']; ?></td>
-                                  <td class=""> <a href="?deleting=<?php echo $value['id'] ?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</a></td>
-                                </tr>
+                            if($data): // check if there is any data first
+                              $n ="";
+                              foreach ($data as $value):
+                                $phone = $value['phone'];
+                                if (strlen($phone) >= 20):
+                                    $phone = substr($phone, 0, 27). " ... ";
+                                endif;
+                                ?>
+                                  <tr id="tr_<?php echo $value['id'] ?>">
+                                    <!-- <td><input type="checkbox" name="case" id="<?php //echo $value['id'] ?>"></td> -->
+                                    <td class=""><a href="draft.php?draft=1&id=<?php echo $value['id'] ?>"><?php echo $phone; ?></a></td>
+                                    <td class=""><b><a href="draft.php?draft=1&id=<?php echo $value['id'] ?>"><?php echo $value['smstext']; ?></a></td>
+                                    <!-- <td class="">5 mins ago</td> -->
+                                  </tr>
 
-                              <?php                             
-
-                            }
+                                <?php                             
+                              endforeach;
+                            endif;
                            ?>
                           
                         

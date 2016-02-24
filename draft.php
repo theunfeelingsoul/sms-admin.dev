@@ -5,16 +5,13 @@
   include 'class/smstext.class.php';
   $smstext = new smstext();
 
-          $total = $smstext->countSentSMS(); 
-
-
   // Get the id given
   $draft_id = $_GET['id'];
 
   // delete draft
   if (isset($_GET['delete'])) {
     $smstext->delete($_GET['delete']);
-    header('Location:sentsms.php?delete=1');
+    header('Location:draftsms.php?delete=1');
     exit();
   }
   
@@ -72,7 +69,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>AdminLTE 2 | Compose Message</title>
+    <title>SMSAPP | Edit Draft</title>
     <?php include "includes/_metaheader.php"; ?>
     <?php include "includes/_csslinks.php"; ?>
     <!-- fullCalendar 2.2.5-->
@@ -109,8 +106,8 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Mailbox
-            <small>13 new messages</small>
+            Draft Messages
+            <small><?php echo $smstext->total_draft ?> </small>
           </h1>
           <?php include "includes/_breadcrums.php"; ?>
         </section>

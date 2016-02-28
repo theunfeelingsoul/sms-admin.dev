@@ -39,6 +39,8 @@
         <ul class="treeview-menu">
           <li class=""><a href="addContact.php"><i class="fa fa-circle-o"></i> Add contact</a></li>
           <li class=""><a href="viewContact.php"><i class="fa fa-circle-o"></i> View contacts</a></li>
+          <li class=""><a href="addGroup.php"><i class="fa fa-circle-o"></i> Add group</a></li>
+          <li class=""><a href="viewGroups.php"><i class="fa fa-circle-o"></i> View groups</a></li>
         </ul>
       </li>
       

@@ -104,3 +104,14 @@ todo
 ----
 
 When draft is deleted, show alert and return to draftsms.php
+
+2/25/2016
+---------
+Created the addGroup.php
+Created viewGroup.php
+Create updateGroup.php
+add group id into people_group table instead of group name
+
+Create deleteGroup.php
+todo
+----

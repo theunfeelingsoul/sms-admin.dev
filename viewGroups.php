@@ -1,8 +1,17 @@
 <!DOCTYPE html>
-<?php include "includes/_config.php"; ?>
+<?php 
+
+  include 'class/class.group.php';
+  $G = new Group();
+
+  $counter = 1;
+
+  $groups = $G->view();
+
+?>
 <html>
   <head>
-    <title>SMSAPP | View Contacts</title>
+    <title>SMSAPP | View Groups</title>
     <?php include "includes/_metaheader.php"; ?>
     <?php include "includes/_csslinks.php"; ?>
      <!-- DataTables -->
@@ -22,7 +31,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            View Contacts
+            View Groups
             <!-- <small>advanced tables</small> -->
           </h1>
           <?php include "includes/_breadcrums.php"; ?>
@@ -42,7 +51,7 @@
            ?>
               <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4>  <i class="icon fa fa-check"></i> Sucess!</h4>
+                <h4>  <i class="icon fa fa-check"></i> Group deleted.</h4>
               </div>
           <?php 
 
@@ -65,17 +74,7 @@
                 <div class="box-header">
                   <!-- <h3 class="box-title">Data Table With Full Features</h3> -->
                   <div id="add-group-form">
-                    <div class="col-md-2">
-                      <select id="add-group-form-select" class="form-control">
-                        <option>Add to group</option>
-                        <?php $res1 = $mysqli->query("SELECT * FROM labels"); while ($row = $res1->fetch_assoc()):?>
-                        <option value="<?php echo $row['id'] ?>"><?php echo $row['label_name'] ?></option>
-                        <?php endwhile; ?>
-                      </select>
-                    </div>
-                    <div class="col-md-1">
-                      <input id="add-group-form-btn" class="form-control" type="submit" value="add"/>
-                    </div>
+                    
                     <div class="group-add-alert col-md-3 text-danger"> </div>
                   </div> <!-- /.add-group-form -->
                 </div><!-- /.box-header -->
@@ -83,44 +82,34 @@
                   <table id="contact-table" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th></th>
-                        <!-- <th>ID</th> -->
-                        <th>Name</th>
-                        <th>Gender</th>
-                        <th>Phone</th>
-                        <th>ID Number</th>
-                        <th>Action</th>
+                        <th>No</th>
+                        <th>Group Name</th>
+                        <th>Manage</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php
-                        $res = $mysqli->query("SELECT * FROM personal ORDER BY id_personal DESC");
-                        while ($row = $res->fetch_assoc()):
+
+                        foreach ($groups as $key => $group):
                       ?>
                         <tr>
-                          <td> <input id="<?php echo $row['id_personal'] ?>"type="checkbox" name="checkgroup"/> </td>
                           <!-- <td><?php // echo $row['id_personal'] ?></td> -->
-                          <td><?php echo $row['name'] ?></td>
-                          <td><?php echo $row['gender'] ?></td>
-                          <td><?php echo $row['telp'] ?></td>
-                          <td><?php echo $row['idnumber'] ?></td>
+                          <td><?= $counter++ ?></td>
+                          <td><?= $group['label_name'] ?></td>
                           <td>
-                          <a href="updateContact.php?u=<?php echo $row['id_personal'] ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</a>
-                          <a href="?deleting=<?php echo $row['id_personal'] ?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</a>
+                          <a href="updateGroup.php?u=<?php echo $group['id'] ?>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</a>
+                          <a href="?deleting=<?php echo $group['id'] ?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</a>
                           </td>
                         </tr>
                       <?php
-                      endwhile;
+                      endforeach;
                       ?>
                     </tbody>
                     <tfoot>
                       <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Gender</th>
-                        <th>Phone</th>
-                        <th>ID Number</th>
-                        <th>Action</th>
+                        <th>Group name</th>
+                        <th>Manage</th>
                       </tr>
                     </tfoot>
                   </table>
@@ -221,12 +210,12 @@
                       var x=document.getElementById("hidden_delete_id");
 
                       // send id to the delete page
-                      $.post( "deleteContact.php?d="+x.value, function( data ) {
+                      $.post( "deleteGroup.php?d="+x.value, function( data ) {
                       if (data=='yes') {
                         // if successful add the following get variable to display required css
-                        location.href="viewContact.php?deleted=1";
+                        location.href="viewGroups.php?deleted=1";
                       }else{
-                        location.href="viewContact.php?deleted=0";
+                        location.href="viewGroups.php?deleted=0";
                       }
                     });
                   }else{
@@ -267,12 +256,11 @@
 
       $( "#add-group-form-btn" ).click(function() {
         var checked_boxes = $('[name=checkgroup]:checked').size(); // get the number of the checked contacts
-        var groupid = $( "#add-group-form-select option:selected" ).val(); // value of drop down
         var groupname = $( "#add-group-form-select option:selected" ).text(); // value of drop down
 
           $('[name=checkgroup]:checked').each(function () { // use loop to insert data one by one
             var id = $(this).attr('id'); // id of checkbox which is the id of the contact
-              $.post( "ajaxlabel.php", { id: id , g : groupid}).done(function( data ) {
+              $.post( "ajaxlabel.php", { id: id , g : groupname}).done(function( data ) {
                 console.log(data);
                 $('#contact-table :checked').removeAttr('checked'); // clear the checkboxes
               }); // end $.post()

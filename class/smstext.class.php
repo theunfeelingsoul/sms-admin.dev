@@ -13,6 +13,7 @@ class smstext extends Database
 {
 
 	public $sent_sms_table = "sentsms";
+	public $labeltable = "labels";
 	public $_limit = 5;
 	public $_page = 1;
 
@@ -29,7 +30,8 @@ class smstext extends Database
 		$this->total_draft = $this->countDraftSMS();  
 	}
 
-	public function getSms(){
+	public function getSms()
+	{
 		// $this->db();
 		$table = $this->sent_sms_table;
 		$res = $this->mysqli->query("SELECT * FROM $table");
@@ -52,10 +54,11 @@ class smstext extends Database
 	 *
 	 * @return (array or Boolean)  (data)  
 	 */
-	public function getSentSms(){
+	public function getSentSms()
+	{
 		// $this->db();
 		$table = $this->sent_sms_table;
-		$res = $this->mysqli->query("SELECT * FROM $table WHERE draft=0");
+		$res = $this->mysqli->query("SELECT * FROM $table WHERE draft=0 ORDER BY id DESC");
 
 		// check if there is data first
 		if ($this->countSentSMS() > 0 ) {
@@ -81,7 +84,8 @@ class smstext extends Database
 	 *
 	 * @return (array or Boolean) (data)
 	 */
-	public function getDraftSms(){
+	public function getDraftSms()
+	{
 		// $this->db();
 		$table = $this->sent_sms_table;
 		$res = $this->mysqli->query("SELECT * FROM $table WHERE draft=1");
@@ -113,7 +117,8 @@ class smstext extends Database
 	 *
 	 * @return (array) (data)
 	 */
-	public function getSentSmsPagination($start,$per_page){
+	public function getSentSmsPagination($start,$per_page)
+	{
 		$table = $this->sent_sms_table;
 		$res = $this->mysqli->query("SELECT * FROM $table WHERE draft=0 LIMIT $start,$per_page");
 		$data ="";
@@ -129,7 +134,8 @@ class smstext extends Database
 	}
 
 
-	public function delete($id){
+	public function delete($id)
+	{
 		// sql to delete a record
 		$table = $this->sent_sms_table;
 		$sql = "DELETE FROM $table WHERE id='$id'";
@@ -153,7 +159,8 @@ class smstext extends Database
 
 	// insert into SMS table
 	// the sent SMS
-	public function create($recipient_phone,$text,$draft){
+	public function create($recipient_phone,$text,$draft)
+	{
 		// $this->db();
 
 		$table = $this->sent_sms_table;
@@ -164,10 +171,10 @@ class smstext extends Database
 		}else{
 			return 0;
 		}
-
 	} // end create()
 
-	public function sendSms($recipients,$message){
+	public function sendSms($recipients,$message)
+	{
 		// Be sure to include the file you've just downloaded
 		require_once('AfricasTalkingGateway.php');
 
@@ -207,11 +214,10 @@ class smstext extends Database
 		  return  "Encountered an error while sending: ".$e->getMessage();
 		}
 
-
-
 	} // end sendSms()
 
-	public function getLastId(){
+	public function getLastId()
+	{
 		return $this->mysqli->insert_id;
 	}
 
@@ -238,6 +244,14 @@ class smstext extends Database
 
 	}
 
+	function getGroupIDByName($label_name){
+		$table = $this->labeltable;
+		$res = $this->mysqli->query("SELECT id FROM $table WHERE label_name='$label_name'");
+        while ($row = $res->fetch_assoc()){
+        	return $row['id'];
+        }
+	} // end getGroupnameByID()
+
 
 	/**
 	 * explodePostGetGroups()
@@ -257,12 +271,15 @@ class smstext extends Database
 
 		
 		foreach ($post as $key => $value) {
-			// check if a group i.e. doesnt start with +254
-			// then get the phone numbers associated with that group
+			// check if its a  group i.e. doesnt start with +254
+			// if group,  get the phone numbers associated with that group
 			if (substr( $value, 0, 4 ) != "+254"):
+
+				// get the group_name from the $value
+				$label_id = $this->getGroupIDByName($value);
 				// get the contact id associatied with the group name
 				// this process will bring out duplicates becase many people can be in many groups
-				$contacts_ids = $this->getGroupsByField('group_name',$value);
+				$contacts_ids = $this->getGroupsByField('group_name',$label_id);
 				
 				// check if there are any contacts first
 				if ($contacts_ids) :

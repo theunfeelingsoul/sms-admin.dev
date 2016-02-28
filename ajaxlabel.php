@@ -40,11 +40,11 @@
 	}  // end if
 
 	if (isset($_POST['g'])) {
-		$group_name = $_POST['g'];
+		$group_id = $_POST['g'];
 		$person_id = $_POST['id'];
 
 		$sql="INSERT INTO people_group (person_id, group_name) 
-	    VALUES ('$person_id', '$group_name')";
+	    VALUES ('$person_id', '$group_id')";
 	  
 	    if (mysqli_query($conn, $sql)) {
 

@@ -9,6 +9,7 @@ class Group extends Database
 {
 
 	public $tablename = "labels";
+	public $peoplegrouptable = "people_group";
 	
 	function __construct()
 	{
@@ -84,20 +85,35 @@ class Group extends Database
         return $data;
 	} // end getContactsByField()
 
+	/**
+	 * delete()
+	 *
+	 * update the sentsms table
+	 *
+	 * @param 	(int) 		(id) 			id to be deleted
+	 * @param 	(var_char) 	(label_name)	group name
+	 * @return 	(string)
+	 */
 	public function delete($id){
-		// sql to delete a record
+		// sql to delete a record from label table
 		$table = $this->tablename;
 		$sql = "DELETE FROM $table WHERE id='$id'";
-		 $this->mysqli->query($sql);
+		$this->mysqli->query($sql);
 
-		 if($this->mysqli->affected_rows == 1){
-          // echo "<script>location.href='viewContact.php'</script>";
-	          echo "yes";
-	     }else{
-	          // echo "<script>alert('".$stmt->error."')</script>";
+		if($this->mysqli->affected_rows == 1){
+			// also delete the records in people group
+
+			$table = $this->peoplegrouptable;
+			$sql = "DELETE FROM $table WHERE group_name ='$id'";
+			$this->mysqli->query($sql);
+			
+			if($this->mysqli->affected_rows > 1){
+				echo "yes";
+			}else{
 	          echo "no";
+			}
 	     }
-	}
+	} // end delete
 
 
 } // end class

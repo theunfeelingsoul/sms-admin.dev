@@ -113,5 +113,12 @@ Create updateGroup.php
 add group id into people_group table instead of group name
 
 Create deleteGroup.php
+
+2/29/2016
+---------
+1. When i delete a group, it also deletes the corresponding people in people_group table
+2. when you delete a contact, it also get rmoved from the people group table
+
 todo
 ----
+checkformat method in contacts class

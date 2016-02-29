@@ -6,6 +6,8 @@ include "includes/_config.php";
 
 if(isset($_POST['bts'])){
   if($_POST['nm']!=null && $_POST['gd']!=null && $_POST['tl']!=null  && $_POST['idnumber']!=null){
+
+    
      $stmt = $mysqli->prepare("INSERT INTO personal(name,gender,telp,idnumber) VALUES (?,?,?,?)");
      $stmt->bind_param('ssss', $nm, $gd, $tl, $idnumber);
 

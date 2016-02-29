@@ -39,6 +39,20 @@
         <ul class="treeview-menu">
           <li class=""><a href="addContact.php"><i class="fa fa-circle-o"></i> Add contact</a></li>
           <li class=""><a href="viewContact.php"><i class="fa fa-circle-o"></i> View contacts</a></li>
+        </ul>
+      </li>
+
+      <!-- check the url and make the li active. $filename is in the _header.php page-->
+      <?php if (strpos($filename, 'Group') == true): ?>
+        <li class="treeview active">
+      <?php else: ?>
+        <li>
+      <?php endif; ?>
+        <a href="#">
+          <i class="fa fa-users"></i> <span>Contact Groups</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
           <li class=""><a href="addGroup.php"><i class="fa fa-circle-o"></i> Add group</a></li>
           <li class=""><a href="viewGroups.php"><i class="fa fa-circle-o"></i> View groups</a></li>
         </ul>

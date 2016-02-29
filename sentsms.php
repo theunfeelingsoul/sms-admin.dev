@@ -86,7 +86,7 @@
                         <!-- <td>checkbox</td> -->
                         <th>Number</th>
                         <th>Message</th>
-                        <th>Delete</th>
+                        <!-- <th>Delete</th> -->
                       </thead>
                       <tbody>
                         
@@ -103,7 +103,7 @@
                                   <!-- <td><input type="checkbox" name="case" id="<?php //echo $value['id'] ?>"></td> -->
                                   <td class=""><a href="readsms.php?id=<?php echo $value['id'] ?>"><?php echo $phone; ?></a></td>
                                   <td class=""><b><?php echo $value['smstext']; ?></td>
-                                  <td class=""> <a href="?deleting=<?php echo $value['id'] ?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</a></td>
+                                  <!-- <td class=""> <a href="?deleting=<?php //echo $value['id'] ?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</a></td> -->
                                 </tr>
 
                               <?php                             
